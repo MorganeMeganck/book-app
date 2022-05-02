@@ -5,7 +5,7 @@ const app = express();
 
 // Chargement des variables d'environement
 require("dotenv-flow").config();
-
+app.use(express.json());
 // Variable de config
 const { PORT, NODE_ENV, DB_CONNECTIONSTRING } = process.env;
 // Middlewares

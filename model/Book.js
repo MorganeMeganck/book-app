@@ -25,6 +25,10 @@ const bookSchema = new Schema({
   note: {
     type: Number,
   },
+  image: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Book", bookSchema);
