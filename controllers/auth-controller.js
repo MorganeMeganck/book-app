@@ -27,10 +27,10 @@ const authController = {
   login: async (req, res) => {
     try {
       // Recuperation des données
-      const { identifier, password } = req.validatedData;
+      const { email, password } = req.validatedData;
 
       // Récuperation du compte "member" à l'aide de l'email
-      const member = await User.findOne({ identifier });
+      const member = await User.findOne().where("email").equals(email);
       // Erreur 422, si le member n'existe pas (pseudo ou email invalide)
       if (!member) {
         return res.status(422).json(new ErrorResponse("Bad credential", 422));
@@ -39,6 +39,7 @@ const authController = {
       const isValid = await bcrypt.compare(password, member.password);
       // Erreur 422, si le mot de passe ne correspond pas au hashage
       if (!isValid) {
+        console.log("heho");
         return res.status(422).json(new ErrorResponse("Bad credential", 422));
       }
       // Génération d'un « Json Web Token »
@@ -47,7 +48,7 @@ const authController = {
         isAdmin: member.isAdmin,
       });
       // Envoi du token
-      return res.json({ user, token: token });
+      return res.json({ token: token });
     } catch (error) {
       console.log(error);
     }

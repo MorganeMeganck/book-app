@@ -14,7 +14,7 @@ const registerValidator = yup.object().shape({
 });
 
 const loginValidator = yup.object().shape({
-  identifier: yup.string().trim().required(),
+  email: yup.string().trim().required(),
   password: yup.string().required(),
 });
 
